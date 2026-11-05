@@ -13,13 +13,13 @@
 
 /** Production project (used on GitHub Pages and any non-localhost domain). */
 const production = {
-  apiKey: 'PASTE_YOUR_WEB_API_KEY',
+  apiKey: 'AIzaSyDXWEcbDfXqIoRC9WRj1rYqYg4J-0IomF4',
   authDomain: 'daily-tasks-1987e.firebaseapp.com',
   databaseURL: 'https://daily-tasks-1987e-default-rtdb.europe-west1.firebasedatabase.app',
   projectId: 'daily-tasks-1987e',
   storageBucket: 'daily-tasks-1987e.firebasestorage.app',
-  messagingSenderId: 'PASTE_YOUR_MESSAGING_SENDER_ID',
-  appId: 'PASTE_YOUR_APP_ID',
+  messagingSenderId: '324537978634',
+  appId: '1:324537978634:web:2cd61efbf092b4a041f4f3',
 };
 
 /**
