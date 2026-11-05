@@ -1,0 +1,425 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "roles": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": false
+      }
+    },
+    "users": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid && root.child('roles').child(auth.uid).exists()",
+        ".write": "auth != null && auth.uid === $uid && root.child('roles').child(auth.uid).exists()",
+        "profile": {
+          ".validate": "newData.hasChildren(['name', 'createdAt'])",
+          "name": {
+            ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 60"
+          },
+          "email": {
+            ".validate": "newData.isString() && newData.val().length >= 0 && newData.val().length <= 254"
+          },
+          "createdAt": {
+            ".validate": "newData.isNumber() && newData.val() >= 0"
+          },
+          "updatedAt": {
+            ".validate": "newData.isNumber() && newData.val() >= 0"
+          },
+          "$other": {
+            ".validate": false
+          }
+        },
+        "settings": {
+          "theme": {
+            ".validate": "newData.isString() && (newData.val() === 'dark' || newData.val() === 'light' || newData.val() === 'auto')"
+          },
+          "accent": {
+            ".validate": "newData.isString() && (newData.val() === 'blue' || newData.val() === 'violet' || newData.val() === 'pink' || newData.val() === 'orange' || newData.val() === 'green' || newData.val() === 'graphite')"
+          },
+          "wallpaper": {
+            ".validate": "newData.isString() && (newData.val() === 'midnight' || newData.val() === 'aurora' || newData.val() === 'tide' || newData.val() === 'dusk' || newData.val() === 'ember' || newData.val() === 'grove')"
+          },
+          "glass": {
+            ".validate": "newData.isString() && (newData.val() === 'tinted' || newData.val() === 'clear')"
+          },
+          "reduceTransparency": {
+            ".validate": "newData.isBoolean()"
+          },
+          "sidebarCollapsed": {
+            ".validate": "newData.isBoolean()"
+          },
+          "weekStartsOn": {
+            ".validate": "newData.isNumber() && (newData.val() === 0 || newData.val() === 1)"
+          },
+          "dailyFocusGoalMin": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1440"
+          },
+          "focus": {
+            "focusMin": {
+              ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 180"
+            },
+            "shortMin": {
+              ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 60"
+            },
+            "longMin": {
+              ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 120"
+            },
+            "longEvery": {
+              ".validate": "newData.isNumber() && newData.val() >= 2 && newData.val() <= 12"
+            },
+            "sound": {
+              ".validate": "newData.isBoolean()"
+            },
+            "autoStartBreaks": {
+              ".validate": "newData.isBoolean()"
+            },
+            "$other": {
+              ".validate": false
+            }
+          },
+          "notifications": {
+            "enabled": {
+              ".validate": "newData.isBoolean()"
+            },
+            "dueToday": {
+              ".validate": "newData.isBoolean()"
+            },
+            "upcoming": {
+              ".validate": "newData.isBoolean()"
+            },
+            "overdue": {
+              ".validate": "newData.isBoolean()"
+            },
+            "meetings": {
+              ".validate": "newData.isBoolean()"
+            },
+            "reminders": {
+              ".validate": "newData.isBoolean()"
+            },
+            "focus": {
+              ".validate": "newData.isBoolean()"
+            },
+            "meetingLeadMin": {
+              ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 120"
+            },
+            "$other": {
+              ".validate": false
+            }
+          },
+          "updatedAt": {
+            ".validate": "newData.isNumber() && newData.val() >= 0"
+          },
+          "$other": {
+            ".validate": false
+          }
+        },
+        "tasks": {
+          "$taskId": {
+            ".validate": "newData.hasChildren(['title', 'status', 'priority', 'category', 'createdAt', 'updatedAt'])",
+            "title": {
+              ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 200"
+            },
+            "description": {
+              ".validate": "newData.isString() && newData.val().length >= 0 && newData.val().length <= 5000"
+            },
+            "projectId": {
+              ".validate": "newData.isString() && newData.val().matches(/^[A-Za-z0-9_-]+$/) && newData.val().length <= 64"
+            },
+            "category": {
+              ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 40"
+            },
+            "priority": {
+              ".validate": "newData.isString() && (newData.val() === 'Critical' || newData.val() === 'High' || newData.val() === 'Medium' || newData.val() === 'Low')"
+            },
+            "status": {
+              ".validate": "newData.isString() && (newData.val() === 'Not Started' || newData.val() === 'In Progress' || newData.val() === 'On Hold' || newData.val() === 'Completed' || newData.val() === 'Cancelled')"
+            },
+            "startDate": {
+              ".validate": "newData.isString() && newData.val().matches(/^[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]$/)"
+            },
+            "endDate": {
+              ".validate": "newData.isString() && newData.val().matches(/^[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]$/)"
+            },
+            "dueTime": {
+              ".validate": "newData.isString() && newData.val().matches(/^[0-2][0-9]:[0-5][0-9]$/)"
+            },
+            "estimatedMinutes": {
+              ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 100000"
+            },
+            "progress": {
+              ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100"
+            },
+            "tags": {
+              "$i": {
+                ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 40"
+              }
+            },
+            "notes": {
+              ".validate": "newData.isString() && newData.val().length >= 0 && newData.val().length <= 20000"
+            },
+            "recurrence": {
+              ".validate": "newData.hasChildren(['freq', 'interval'])",
+              "freq": {
+                ".validate": "newData.isString() && (newData.val() === 'daily' || newData.val() === 'weekdays' || newData.val() === 'weekly' || newData.val() === 'monthly' || newData.val() === 'custom')"
+              },
+              "interval": {
+                ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 365"
+              },
+              "unit": {
+                ".validate": "newData.isString() && (newData.val() === 'day' || newData.val() === 'week' || newData.val() === 'month')"
+              },
+              "$other": {
+                ".validate": false
+              }
+            },
+            "reminderAt": {
+              ".validate": "newData.isNumber() && newData.val() >= 0"
+            },
+            "archived": {
+              ".validate": "newData.isBoolean()"
+            },
+            "archivedAt": {
+              ".validate": "newData.isNumber() && newData.val() >= 0"
+            },
+            "createdAt": {
+              ".validate": "newData.isNumber() && newData.val() >= 0"
+            },
+            "updatedAt": {
+              ".validate": "newData.isNumber() && newData.val() >= 0"
+            },
+            "completedAt": {
+              ".validate": "newData.isNumber() && newData.val() >= 0"
+            },
+            "startedAt": {
+              ".validate": "newData.isNumber() && newData.val() >= 0"
+            },
+            "seriesId": {
+              ".validate": "newData.isString() && newData.val().matches(/^[A-Za-z0-9_-]+$/) && newData.val().length <= 64"
+            },
+            "nextOccurrenceId": {
+              ".validate": "newData.isString() && newData.val().matches(/^[A-Za-z0-9_-]+$/) && newData.val().length <= 64"
+            },
+            "meetingId": {
+              ".validate": "newData.isString() && newData.val().matches(/^[A-Za-z0-9_-]+$/) && newData.val().length <= 64"
+            },
+            "$other": {
+              ".validate": false
+            }
+          }
+        },
+        "projects": {
+          "$projectId": {
+            ".validate": "newData.hasChildren(['name', 'status', 'createdAt', 'updatedAt'])",
+            "name": {
+              ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 120"
+            },
+            "code": {
+              ".validate": "newData.isString() && newData.val().length >= 0 && newData.val().length <= 30"
+            },
+            "description": {
+              ".validate": "newData.isString() && newData.val().length >= 0 && newData.val().length <= 5000"
+            },
+            "category": {
+              ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 60"
+            },
+            "startDate": {
+              ".validate": "newData.isString() && newData.val().matches(/^[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]$/)"
+            },
+            "targetDate": {
+              ".validate": "newData.isString() && newData.val().matches(/^[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]$/)"
+            },
+            "status": {
+              ".validate": "newData.isString() && (newData.val() === 'Planning' || newData.val() === 'Active' || newData.val() === 'On Hold' || newData.val() === 'Completed' || newData.val() === 'Cancelled')"
+            },
+            "priority": {
+              ".validate": "newData.isString() && (newData.val() === 'Critical' || newData.val() === 'High' || newData.val() === 'Medium' || newData.val() === 'Low')"
+            },
+            "notes": {
+              ".validate": "newData.isString() && newData.val().length >= 0 && newData.val().length <= 20000"
+            },
+            "color": {
+              ".validate": "newData.isString() && newData.val().matches(/^#[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]$/)"
+            },
+            "tags": {
+              "$i": {
+                ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 40"
+              }
+            },
+            "archived": {
+              ".validate": "newData.isBoolean()"
+            },
+            "archivedAt": {
+              ".validate": "newData.isNumber() && newData.val() >= 0"
+            },
+            "createdAt": {
+              ".validate": "newData.isNumber() && newData.val() >= 0"
+            },
+            "updatedAt": {
+              ".validate": "newData.isNumber() && newData.val() >= 0"
+            },
+            "completedAt": {
+              ".validate": "newData.isNumber() && newData.val() >= 0"
+            },
+            "$other": {
+              ".validate": false
+            }
+          }
+        },
+        "meetings": {
+          "$meetingId": {
+            ".validate": "newData.hasChildren(['title', 'date', 'createdAt', 'updatedAt'])",
+            "title": {
+              ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 200"
+            },
+            "date": {
+              ".validate": "newData.isString() && newData.val().matches(/^[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]$/)"
+            },
+            "startTime": {
+              ".validate": "newData.isString() && newData.val().matches(/^[0-2][0-9]:[0-5][0-9]$/)"
+            },
+            "endTime": {
+              ".validate": "newData.isString() && newData.val().matches(/^[0-2][0-9]:[0-5][0-9]$/)"
+            },
+            "location": {
+              ".validate": "newData.isString() && newData.val().length >= 0 && newData.val().length <= 300"
+            },
+            "projectId": {
+              ".validate": "newData.isString() && newData.val().matches(/^[A-Za-z0-9_-]+$/) && newData.val().length <= 64"
+            },
+            "participants": {
+              "$i": {
+                ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 80"
+              }
+            },
+            "agenda": {
+              ".validate": "newData.isString() && newData.val().length >= 0 && newData.val().length <= 10000"
+            },
+            "notes": {
+              ".validate": "newData.isString() && newData.val().length >= 0 && newData.val().length <= 20000"
+            },
+            "actionItems": {
+              "$itemId": {
+                ".validate": "newData.hasChildren(['text', 'createdAt'])",
+                "text": {
+                  ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 500"
+                },
+                "done": {
+                  ".validate": "newData.isBoolean()"
+                },
+                "dueDate": {
+                  ".validate": "newData.isString() && newData.val().matches(/^[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]$/)"
+                },
+                "taskId": {
+                  ".validate": "newData.isString() && newData.val().matches(/^[A-Za-z0-9_-]+$/) && newData.val().length <= 64"
+                },
+                "createdAt": {
+                  ".validate": "newData.isNumber() && newData.val() >= 0"
+                },
+                "$other": {
+                  ".validate": false
+                }
+              }
+            },
+            "followUpDate": {
+              ".validate": "newData.isString() && newData.val().matches(/^[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]$/)"
+            },
+            "followUpDone": {
+              ".validate": "newData.isBoolean()"
+            },
+            "archived": {
+              ".validate": "newData.isBoolean()"
+            },
+            "archivedAt": {
+              ".validate": "newData.isNumber() && newData.val() >= 0"
+            },
+            "createdAt": {
+              ".validate": "newData.isNumber() && newData.val() >= 0"
+            },
+            "updatedAt": {
+              ".validate": "newData.isNumber() && newData.val() >= 0"
+            },
+            "$other": {
+              ".validate": false
+            }
+          }
+        },
+        "notes": {
+          "$noteId": {
+            ".validate": "newData.hasChildren(['type', 'createdAt', 'updatedAt']) && (newData.hasChild('title') || newData.hasChild('body'))",
+            "title": {
+              ".validate": "newData.isString() && newData.val().length >= 0 && newData.val().length <= 200"
+            },
+            "body": {
+              ".validate": "newData.isString() && newData.val().length >= 0 && newData.val().length <= 50000"
+            },
+            "type": {
+              ".validate": "newData.isString() && (newData.val() === 'quick' || newData.val() === 'technical' || newData.val() === 'rnd' || newData.val() === 'idea' || newData.val() === 'reminder')"
+            },
+            "tags": {
+              "$i": {
+                ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 40"
+              }
+            },
+            "pinned": {
+              ".validate": "newData.isBoolean()"
+            },
+            "projectId": {
+              ".validate": "newData.isString() && newData.val().matches(/^[A-Za-z0-9_-]+$/) && newData.val().length <= 64"
+            },
+            "archived": {
+              ".validate": "newData.isBoolean()"
+            },
+            "archivedAt": {
+              ".validate": "newData.isNumber() && newData.val() >= 0"
+            },
+            "createdAt": {
+              ".validate": "newData.isNumber() && newData.val() >= 0"
+            },
+            "updatedAt": {
+              ".validate": "newData.isNumber() && newData.val() >= 0"
+            },
+            "$other": {
+              ".validate": false
+            }
+          }
+        },
+        "focusSessions": {
+          ".indexOn": [
+            "startedAt"
+          ],
+          "$sessionId": {
+            ".validate": "newData.hasChildren(['mode', 'plannedSec', 'actualSec', 'startedAt', 'endedAt', 'date'])",
+            "mode": {
+              ".validate": "newData.isString() && (newData.val() === 'focus' || newData.val() === 'short' || newData.val() === 'long')"
+            },
+            "plannedSec": {
+              ".validate": "newData.isNumber() && newData.val() >= 60 && newData.val() <= 14400"
+            },
+            "actualSec": {
+              ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 14400"
+            },
+            "startedAt": {
+              ".validate": "newData.isNumber() && newData.val() >= 0"
+            },
+            "endedAt": {
+              ".validate": "newData.isNumber() && newData.val() >= newData.parent().child('startedAt').val()"
+            },
+            "date": {
+              ".validate": "newData.isString() && newData.val().matches(/^[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]$/)"
+            },
+            "taskId": {
+              ".validate": "newData.isString() && newData.val().matches(/^[A-Za-z0-9_-]+$/) && newData.val().length <= 64"
+            },
+            "$other": {
+              ".validate": false
+            }
+          }
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    }
+  }
+}

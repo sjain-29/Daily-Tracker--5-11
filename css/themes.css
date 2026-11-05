@@ -1,0 +1,137 @@
+/* css/themes.css — design tokens for dark (default) and light themes, accents, glass and wallpapers. */
+
+:root {
+  color-scheme: dark;
+  --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --radius-xl: 22px;
+  --radius-lg: 18px;
+  --radius: 14px;
+  --radius-sm: 10px;
+  --radius-xs: 7px;
+  --sidebar-w: 236px;
+  --sidebar-w-collapsed: 76px;
+  --topbar-h: 64px;
+  --bottom-nav-h: 64px;
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  --t-fast: 140ms;
+  --t: 220ms;
+
+  /* Dark theme (default) */
+  --bg: #06070b;
+  --bg-elev: #0d1017;
+  --surface: rgba(20, 23, 32, 0.62);
+  --surface-solid: #11141c;
+  --surface-2: rgba(255, 255, 255, 0.035);
+  --surface-3: rgba(255, 255, 255, 0.06);
+  --surface-hover: rgba(255, 255, 255, 0.055);
+  --surface-active: rgba(255, 255, 255, 0.09);
+  --topbar-bg: rgba(6, 7, 11, 0.55);
+  --border: rgba(255, 255, 255, 0.075);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --highlight: rgba(255, 255, 255, 0.07);
+  --text: #eef1f7;
+  --text-2: rgba(226, 231, 242, 0.70);
+  --text-3: rgba(226, 231, 242, 0.46);
+  --accent: #3b82f6;
+  --accent-rgb: 59, 130, 246;
+  --accent-strong: #2f74ee;
+  --accent-2: #8b5cf6;
+  --accent-contrast: #ffffff;
+  --success: #22c55e;
+  --success-rgb: 34, 197, 94;
+  --warning: #f59e0b;
+  --warning-rgb: 245, 158, 11;
+  --orange: #fb923c;
+  --orange-rgb: 251, 146, 60;
+  --danger: #ef4444;
+  --danger-rgb: 239, 68, 68;
+  --violet: #8b5cf6;
+  --ring-track: rgba(255, 255, 255, 0.08);
+  --input-bg: rgba(255, 255, 255, 0.04);
+  --input-border: rgba(255, 255, 255, 0.10);
+  --scrim: rgba(2, 3, 6, 0.62);
+  --shadow: inset 0 1px 0 var(--highlight), 0 14px 36px -16px rgba(0, 0, 0, 0.6);
+  --shadow-pop: inset 0 1px 0 var(--highlight), 0 28px 70px -18px rgba(0, 0, 0, 0.75);
+  --blur: saturate(150%) blur(22px);
+  --skeleton-a: rgba(255, 255, 255, 0.04);
+  --skeleton-b: rgba(255, 255, 255, 0.09);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #eef1f6;
+  --bg-elev: #ffffff;
+  --surface: rgba(255, 255, 255, 0.66);
+  --surface-solid: #ffffff;
+  --surface-2: rgba(15, 23, 42, 0.03);
+  --surface-3: rgba(15, 23, 42, 0.05);
+  --surface-hover: rgba(15, 23, 42, 0.045);
+  --surface-active: rgba(15, 23, 42, 0.08);
+  --topbar-bg: rgba(238, 241, 246, 0.62);
+  --border: rgba(15, 23, 42, 0.08);
+  --border-strong: rgba(15, 23, 42, 0.16);
+  --highlight: rgba(255, 255, 255, 0.85);
+  --text: #0f172a;
+  --text-2: rgba(15, 23, 42, 0.68);
+  --text-3: rgba(15, 23, 42, 0.46);
+  --accent: #2563eb;
+  --accent-rgb: 37, 99, 235;
+  --accent-strong: #1d4ed8;
+  --success: #16a34a;
+  --success-rgb: 22, 163, 74;
+  --warning: #d97706;
+  --warning-rgb: 217, 119, 6;
+  --orange: #ea580c;
+  --orange-rgb: 234, 88, 12;
+  --danger: #dc2626;
+  --danger-rgb: 220, 38, 38;
+  --ring-track: rgba(15, 23, 42, 0.08);
+  --input-bg: rgba(255, 255, 255, 0.7);
+  --input-border: rgba(15, 23, 42, 0.12);
+  --scrim: rgba(15, 23, 42, 0.35);
+  --shadow: inset 0 1px 0 var(--highlight), 0 10px 30px -14px rgba(15, 23, 42, 0.22);
+  --shadow-pop: 0 28px 60px -18px rgba(15, 23, 42, 0.35);
+  --skeleton-a: rgba(15, 23, 42, 0.05);
+  --skeleton-b: rgba(15, 23, 42, 0.10);
+}
+
+/* Glass strength */
+:root[data-glass="clear"] { --surface: rgba(20, 23, 32, 0.36); --topbar-bg: rgba(6, 7, 11, 0.32); }
+:root[data-theme="light"][data-glass="clear"] { --surface: rgba(255, 255, 255, 0.42); --topbar-bg: rgba(238, 241, 246, 0.4); }
+
+/* Reduce transparency: solid surfaces, no frost (also helps low-end phones) */
+:root[data-reduce-transparency="true"] { --surface: var(--surface-solid); --topbar-bg: var(--bg-elev); --blur: none; }
+
+/* Accent colours */
+:root[data-accent="violet"] { --accent: #8b5cf6; --accent-rgb: 139, 92, 246; --accent-strong: #7c3aed; --accent-2: #3b82f6; }
+:root[data-accent="pink"] { --accent: #ec4899; --accent-rgb: 236, 72, 153; --accent-strong: #db2777; --accent-2: #8b5cf6; }
+:root[data-accent="orange"] { --accent: #f97316; --accent-rgb: 249, 115, 22; --accent-strong: #ea580c; --accent-2: #ec4899; }
+:root[data-accent="green"] { --accent: #22c55e; --accent-rgb: 34, 197, 94; --accent-strong: #16a34a; --accent-2: #14b8a6; --accent-contrast: #04130a; }
+:root[data-accent="graphite"] { --accent: #94a3b8; --accent-rgb: 148, 163, 184; --accent-strong: #64748b; --accent-2: #8b5cf6; --accent-contrast: #0b0d12; }
+:root[data-theme="light"][data-accent="graphite"] { --accent: #475569; --accent-rgb: 71, 85, 105; --accent-contrast: #fff; }
+
+/* Wallpapers — soft colour fields behind the glass */
+.wallpaper { position: fixed; inset: 0; z-index: -1; pointer-events: none; background: var(--bg); }
+.wallpaper::before, .wallpaper::after { content: ''; position: absolute; border-radius: 50%; filter: blur(90px); opacity: .55; }
+.wallpaper::before { width: 52vw; height: 52vw; left: -12vw; top: -18vw; }
+.wallpaper::after { width: 46vw; height: 46vw; right: -14vw; bottom: -20vw; }
+:root[data-wallpaper="midnight"] .wallpaper::before, :root[data-wallpaper="midnight"] .wallpaper::after { display: none; }
+:root[data-wallpaper="aurora"] .wallpaper::before { background: radial-gradient(circle, rgba(59, 130, 246, .55), transparent 65%); }
+:root[data-wallpaper="aurora"] .wallpaper::after { background: radial-gradient(circle, rgba(139, 92, 246, .5), transparent 65%); }
+:root[data-wallpaper="tide"] .wallpaper::before { background: radial-gradient(circle, rgba(14, 165, 233, .5), transparent 65%); }
+:root[data-wallpaper="tide"] .wallpaper::after { background: radial-gradient(circle, rgba(20, 184, 166, .42), transparent 65%); }
+:root[data-wallpaper="dusk"] .wallpaper::before { background: radial-gradient(circle, rgba(168, 85, 247, .5), transparent 65%); }
+:root[data-wallpaper="dusk"] .wallpaper::after { background: radial-gradient(circle, rgba(236, 72, 153, .38), transparent 65%); }
+:root[data-wallpaper="ember"] .wallpaper::before { background: radial-gradient(circle, rgba(249, 115, 22, .45), transparent 65%); }
+:root[data-wallpaper="ember"] .wallpaper::after { background: radial-gradient(circle, rgba(239, 68, 68, .35), transparent 65%); }
+:root[data-wallpaper="grove"] .wallpaper::before { background: radial-gradient(circle, rgba(34, 197, 94, .4), transparent 65%); }
+:root[data-wallpaper="grove"] .wallpaper::after { background: radial-gradient(circle, rgba(20, 184, 166, .38), transparent 65%); }
+:root[data-theme="light"] .wallpaper::before, :root[data-theme="light"] .wallpaper::after { opacity: .35; }
+
+/* Wallpaper preview swatches in Settings */
+.wp-swatch[data-wp="midnight"] { background: linear-gradient(135deg, #0b0d13, #151923); }
+.wp-swatch[data-wp="aurora"] { background: radial-gradient(circle at 20% 20%, #3b82f6, transparent 60%), radial-gradient(circle at 85% 85%, #8b5cf6, transparent 60%), #0b0d13; }
+.wp-swatch[data-wp="tide"] { background: radial-gradient(circle at 20% 20%, #0ea5e9, transparent 60%), radial-gradient(circle at 85% 85%, #14b8a6, transparent 60%), #0b0d13; }
+.wp-swatch[data-wp="dusk"] { background: radial-gradient(circle at 20% 20%, #a855f7, transparent 60%), radial-gradient(circle at 85% 85%, #ec4899, transparent 60%), #0b0d13; }
+.wp-swatch[data-wp="ember"] { background: radial-gradient(circle at 20% 20%, #f97316, transparent 60%), radial-gradient(circle at 85% 85%, #ef4444, transparent 60%), #0b0d13; }
+.wp-swatch[data-wp="grove"] { background: radial-gradient(circle at 20% 20%, #22c55e, transparent 60%), radial-gradient(circle at 85% 85%, #14b8a6, transparent 60%), #0b0d13; }
